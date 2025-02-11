@@ -7,11 +7,12 @@ const Navbar = () => {
     const { data: session } = useSession()
     if (session) {
         return <>
-            <nav className="flex items-center justify-between p-4 bg-blue-600 text-white">
+            <nav className="flex items-center justify-between p-3 bg-white text-white border-b-2 border-gray-200">
 
-                <div className="text-lg font-semibold">
-                    Platform Name
+            <div className="text-2xl font-bold text-gray-800 ">
+                    <span className="text-purple-600">Hack</span>Connect
                 </div>
+
 
                 <div className="space-x-4 flex items-center">
                 <Link href={"/search"}>
@@ -27,7 +28,7 @@ const Navbar = () => {
                         </button>
                     </Link>
                     <Link href={"/viewTeam"}><button className="px-4 py-2 bg-white text-blue-600 font-medium rounded hover:bg-blue-100">
-                        View Team
+                        Team Name
                     </button></Link>
                     <Link href={"/profile"}>
                         <button className="px-4 py-2 bg-white text-blue-600 font-medium rounded hover:bg-blue-100">

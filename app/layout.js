@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
               style={{ "width": "29px", "height": "29px" }}>
             </lord-icon>
           </Link>
-          <div className="main h-[80vh] overflow-y-scroll">
+          <div className="main h-[92vh] overflow-y-scroll">
             {children}
           </div>
           <Footer />
