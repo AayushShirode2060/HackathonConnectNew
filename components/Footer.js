@@ -27,7 +27,7 @@ const Footer = () => {
                 </Link>
             </div>
             <div class="px-5 py-2">
-                <a href="#" class="text-base leading-6 text-gray-500 hover:text-white">
+                <a href="/contact_us" class="text-base leading-6 text-gray-500 hover:text-white">
                     Contact
                 </a>
             </div>
