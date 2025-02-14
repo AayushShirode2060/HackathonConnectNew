@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import { useState } from 'react';
 import { FaPhoneAlt, FaPaperPlane, FaGlobe, FaFacebook, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
@@ -17,10 +17,35 @@ export default function ContactForm() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        alert("Message sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        alert("Error sending message.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Something went wrong.");
+    }
   };
+  
 
   return (
     <section className="flex justify-center items-center min-h-screen bg-gray-200">
@@ -45,12 +70,12 @@ export default function ContactForm() {
           <h2 className="text-2xl font-bold mb-4">Send us a message</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-              <input type="text" name="firstName" placeholder="First Name" className="p-3 rounded-xl border w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} />
-              <input type="text" name="lastName" placeholder="Last Name" className="p-3 rounded-xl border w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} />
+              <input type="text" name="firstName" placeholder="First Name" value={formData.firstName} className="p-3 rounded-xl border w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} required />
+              <input type="text" name="lastName" placeholder="Last Name" value={formData.lastName} className="p-3 rounded-xl border w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} required />
             </div>
-            <input type="email" name="email" placeholder="Mail" className="p-3 rounded-xl border w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} />
-            <input type="number" name="phone" placeholder="Phone" className="p-3 rounded-xl border  w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} />
-            <textarea name="message" placeholder="Write your message" className="p-3 rounded-xl border  w-full h-32 shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange}></textarea>
+            <input type="email" name="email" placeholder="Mail" value={formData.email} className="p-3 rounded-xl border w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} />
+            <input type="number" name="phone" placeholder="Phone" value={formData.phone} className="p-3 rounded-xl border  w-full shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange} />
+            <textarea name="message" placeholder="Write your message" value={formData.message} className="p-3 rounded-xl border  w-full h-32 shadow-[inset_8px_8px_8px_#cbced1,inset_-8px_-8px_8px_#ffffff]" onChange={handleChange}></textarea>
             <button type="submit" className="w-full p-3 bg-pink-500 text-white rounded-xl font-bold shadow-md hover:bg-blue-700 transition">Send Message</button>
           </form>
         </div>
